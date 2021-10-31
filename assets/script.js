@@ -4,7 +4,8 @@
 
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+
+var generateBtn = document.querySelector("#generate");
 
 
 
@@ -19,37 +20,55 @@ var uppercaseArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 
 //Array of numbers 
 
-var numbersArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+var numberArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 //Array of special characters
 
-var characterArray = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+"]
+var symbolArray = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+"]
 
 // Write password to the #password input
 
-function writePassword(x, y) {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+function generatePassword(x, y) {
+  //password length
   var passwordLength = parseInt(prompt("How long do you want your password to be?"))
 
   if (passwordLength <8 || passwordLength >128) {
-    window.alert("Password length must be between 8 and 128")
+    alert("Password length must be between 8 and 128")
     return
   }
-  
-  passwordText.value = password;
 
+  var lowercase = window.confirm("Would you like to include lowercase letters?")
+  var uppercase = window.confirm("Would you like to include uppercase letters?")
+  var numbers = window.confirm("Would you like to include numbers?")
+  var symbols = window.confirm("Would you like to include symbols?")
+
+  var characters = []
   
+  if (lowercase) {
+    characters = characters.concat (lowercaseArray)
+  }
+
+  if (uppercase) {
+    characters = characters.concat (uppercaseArray)
+  }
+
+  if (numbers) {
+    characters = characters.concat (numberArray)
+  }
+
+  if (symbols) {
+    characters = characters.concat (symbolArray)
+  }
+ 
+  for (var i = 0; i < passwordLength; i++){
+    var randomCharacter = Math.floor(Math.random() * characters.length)
+  }
 }
-
-
-
-
 
 
 //loop through the arrray and get random value to build password
 
-for (var i = 0; i < )
+
 
 
 
@@ -57,4 +76,4 @@ for (var i = 0; i < )
 
 //event listener, button
 
-var generateBtn = document.querySelector("#generate");
+generateBtn.addEventListener("click", generatePassword);
