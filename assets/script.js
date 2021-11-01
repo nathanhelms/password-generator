@@ -1,39 +1,30 @@
-// @ts-check
-
-// Assignment code here
-
-
-// Add event listener to generate button
+//generate button
 
 var generateBtn = document.querySelector("#generate");
 
-
-
-//Array of lowercase letters
+//character arrays
 
 var lowercaseArray = 
 ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
-//Array of uppercase letters
-
 var uppercaseArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
-//Array of numbers 
 
 var numberArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-//Array of special characters
-
 var symbolArray = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+"]
 
-// Write password to the #password input
 
-function generatePassword(x, y) {
-  //password length
+
+
+
+//password generator 
+
+function generatePassword() {
+
   var passwordLength = parseInt(prompt("How long do you want your password to be?"))
 
   if (passwordLength <8 || passwordLength >128) {
-    alert("Password length must be between 8 and 128")
+    alert("Password length must be between 8 and 128. Please try again.")
     return
   }
 
@@ -45,35 +36,46 @@ function generatePassword(x, y) {
   var characters = []
   
   if (lowercase) {
-    characters = characters.concat (lowercaseArray)
+    characters = characters.concat(lowercaseArray) //how does this combine the arrays? does concat take every array in the doc?
   }
 
   if (uppercase) {
-    characters = characters.concat (uppercaseArray)
+    characters = characters.concat(uppercaseArray)
   }
 
   if (numbers) {
-    characters = characters.concat (numberArray)
+    characters = characters.concat(numberArray)
   }
 
   if (symbols) {
-    characters = characters.concat (symbolArray)
+    characters = characters.concat(symbolArray)
   }
- 
-  for (var i = 0; i < passwordLength; i++){
-    var randomCharacter = Math.floor(Math.random() * characters.length)
+
+  var passwordString = "";
+
+  for (var i = 0; i < passwordLength; i++) {
+    var randomIndex = Math.floor(Math.random() * characters.length)
+
+    var randomCharacter = characters[randomIndex]
+
+    passwordString = passwordString + randomCharacter
+    console.log("passwordString: ", passwordString);
   }
+
+  return passwordString
 }
 
 
-//loop through the arrray and get random value to build password
 
 
 
 
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
+  passwordText.innerHTML = password;
+}
 
-
-//event listener, button
-
-generateBtn.addEventListener("click", generatePassword);
+//event listener
+generateBtn.addEventListener("click", writePassword);
